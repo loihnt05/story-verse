@@ -27,6 +27,10 @@ export const scene2A = newLabel("scene2A", [
             width: canvas.screen.width,
             height: canvas.screen.height,
         });
+        await showImageContainer("minh", ["main_Open"], { xAlign: 0.3, yAlign: 1 });
+        await showImageContainer("lan", ["fm01_Open"], { xAlign: 0.7, yAlign: 1 });
+            await showImageContainer("tuan", []);
+            await showImageContainer("mai", []);
         narration.dialogue = `**NHÓM MINH VÀ LAN - THƯ VIỆN**`;
     },
     
@@ -84,6 +88,21 @@ export const scene2A_choiceA1 = newLabel("scene2A_choice_A1", [
     },
     async () => {
         narration.dialogue = `Minh và Lan rời khỏi thư viện. Minh không bao giờ tìm thấy manh mối thứ hai.`;
+    },
+    
+    // Meanwhile transition screen
+    async () => {
+        await showImageContainer("bg", ["main_corridor"], {
+            x: canvas.screen.width / 2,
+            y: canvas.screen.height / 2,
+            anchor: 0.5,
+            width: canvas.screen.width,
+            height: canvas.screen.height,
+        });
+        // Hide all characters for transition
+        await showImageContainer("minh", []);
+        await showImageContainer("lan", []);
+        narration.dialogue = `**MEANWHILE...**`;
     },
     
     // Switch to Tuấn and Mai group - hide Minh and Lan, show Tuấn and Mai
@@ -176,6 +195,21 @@ export const scene2A_choiceA2 = newLabel("scene2A_choice_A2", [
         };
     },
     
+    // Meanwhile transition screen
+    async () => {
+        await showImageContainer("bg", ["main_corridor"], {
+            x: canvas.screen.width / 2,
+            y: canvas.screen.height / 2,
+            anchor: 0.5,
+            width: canvas.screen.width,
+            height: canvas.screen.height,
+        });
+        // Hide all characters for transition
+        await showImageContainer("minh", []);
+        await showImageContainer("lan", []);
+        narration.dialogue = `**Trong khi đó...**`;
+    },
+    
     // Switch to Tuấn and Mai group - hide Minh and Lan, show Tuấn and Mai
     async () => {
         await showImageContainer("bg", ["medical_room"], {
@@ -205,7 +239,21 @@ export const scene2A_choiceA2 = newLabel("scene2A_choice_A2", [
         await showImageContainer("mai", ["fm02_Closed_Frown"]);
         narration.dialogue = `Đúng lúc đó, Mai giật mình và kêu lên một tiếng nhỏ, khiến Tuấn càng thêm nghi ngờ.`;
     },
-    
+    async()=>{
+        await showImageContainer("bg", ["main_corridor"], {
+            x: canvas.screen.width / 2,
+            y: canvas.screen.height / 2,
+            anchor: 0.5,
+            width: canvas.screen.width,
+            height: canvas.screen.height,
+        });
+        // Hide all characters for transition
+        await showImageContainer("minh", []);
+        await showImageContainer("lan", []);
+                await showImageContainer("tuan", []);
+        await showImageContainer("mai", []);
+        narration.dialogue = `**Cả nhóm sau đó tập trung lại ở hành lang.**`;
+    },
     // Reunion - show all 4 characters
     async () => {
         await showImageContainer("bg", ["main_corridor"], {
@@ -225,7 +273,6 @@ export const scene2A_choiceA2 = newLabel("scene2A_choice_A2", [
             anchor: 0.5 
         });
         await showImageContainer("mai", ["fm02_Frown"], { xAlign: 0.9, yAlign: 1 });
-        narration.dialogue = `Cả nhóm tập trung lại ở hành lang.`;
     },
     async () => {
         narration.dialogue = `**[TO BE CONTINUED - CẢNH 3A]**`;

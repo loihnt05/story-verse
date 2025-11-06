@@ -74,16 +74,31 @@ const scene1 = newLabel("scene1_invitation", [
     
     // Tuấn speaks - skeptical
     async () => {
-        await showImageContainer("tuan", ["m01_Frown"], { scale: { x: -1, y: 1 }, anchor: 0.5 });
+        // Jump animation to highlight
+        await moveIn("tuan", 
+            { value: ["m01_Frown"], options: { xAlign: 0.75, yAlign: 0.9, scale: { x: -1, y: 1 }, anchor: 0.5 } },
+            { duration: 100 }
+        );
+        await moveIn("tuan", 
+            { value: ["m01_Frown"], options: { xAlign: 0.75, yAlign: 1, scale: { x: -1, y: 1 }, anchor: 0.5 } },
+            { duration: 100 }
+        );
         narration.dialogue = {
             character: tuan,
             text: "Tớ vẫn không tin được là chúng ta đang làm chuyện này đấy. Nhỡ có con gì hiện ra thật thì sao?"
         };
     },
-    
     // Lan speaks - analytical
     async () => {
-        await showImageContainer("lan", ["fm01_Smile"]);
+        // Jump animation to highlight
+        await moveIn("lan", 
+            { value: ["fm01_Smile"], options: { xAlign: 0.35, yAlign: 1.1 } },
+            { duration: 100 }
+        );
+        await moveIn("lan", 
+            { value: ["fm01_Smile"], options: { xAlign: 0.35, yAlign: 1.2 } },
+            { duration: 100 }
+        );
         narration.dialogue = {
             character: lan,
             text: "Thống kê cho thấy 99% các nghi thức gọi hồn chỉ là do ảo giác nhóm. Cứ xem như một trải nghiệm tâm lý đi."
@@ -92,7 +107,15 @@ const scene1 = newLabel("scene1_invitation", [
     
     // Mai speaks - nervous
     async () => {
-        await showImageContainer("mai", ["fm02_Frown"]);
+        // Jump animation to highlight
+        await moveIn("mai", 
+            { value: ["fm02_Frown"], options: { xAlign: 0.95, yAlign: 0.9 } },
+            { duration: 100 }
+        );
+        await moveIn("mai", 
+            { value: ["fm02_Frown"], options: { xAlign: 0.95, yAlign: 1 } },
+            { duration: 100 }
+        );
         narration.dialogue = {
             character: mai,
             text: "Nhưng... từ lúc vào đây tớ đã thấy lạnh sống lưng rồi."
@@ -101,7 +124,15 @@ const scene1 = newLabel("scene1_invitation", [
     
     // Minh speaks - reassuring
     async () => {
-        await showImageContainer("minh", ["main_Smile"]);
+        // Jump animation to highlight
+        await moveIn("minh", 
+            { value: ["main_Smile"], options: { xAlign: 0.1, yAlign: 0.9 } },
+            { duration: 100 }
+        );
+        await moveIn("minh", 
+            { value: ["main_Smile"], options: { xAlign: 0.1, yAlign: 1 } },
+            { duration: 100 }
+        );
         narration.dialogue = {
             character: minh,
             text: "Thôi nào mọi người. Chỉ là đọc vài câu cho vui thôi mà. Sẽ không có gì xảy ra đâu. Để tớ đọc câu cuối cùng nhé."
@@ -125,28 +156,56 @@ const scene1 = newLabel("scene1_invitation", [
     
     // Whispers - what each character hears
     async () => {
-        await showImageContainer("minh", ["main_Frown"]);
+        await moveIn("minh", 
+            { value: ["main_Frown"], options: { xAlign: 0.1, yAlign: 0.9 } },
+            { duration: 100 }
+        );
+        await moveIn("minh", 
+            { value: ["main_Frown"], options: { xAlign: 0.1, yAlign: 1 } },
+            { duration: 100 }
+        );
         narration.dialogue = {
             character: minh,
             text: `*(Minh nghe):* "Trong số các ngươi, có một kẻ đã bị chiếm xác."`
         };
     },
     async () => {
-        await showImageContainer("lan", ["fm01_Frown"]);
+        await moveIn("lan", 
+            { value: ["fm01_Frown"], options: { xAlign: 0.35, yAlign: 1.1 } },
+            { duration: 100 }
+        );
+        await moveIn("lan", 
+            { value: ["fm01_Frown"], options: { xAlign: 0.35, yAlign: 1.2 } },
+            { duration: 100 }
+        );
         narration.dialogue = {
             character: lan,
             text: `*(Lan nghe):* "Đừng tin ai cả. Một người trong nhóm không còn là chính mình nữa."`
         };
     },
     async () => {
-        await showImageContainer("tuan", ["m01_Frown"], { scale: { x: -1, y: 1 }, anchor: 0.5 });
+        await moveIn("tuan", 
+            { value: ["m01_Frown"], options: { xAlign: 0.75, yAlign: 0.9, scale: { x: -1, y: 1 }, anchor: 0.5 } },
+            { duration: 100 }
+        );
+        await moveIn("tuan", 
+            { value: ["m01_Frown"], options: { xAlign: 0.75, yAlign: 1, scale: { x: -1, y: 1 }, anchor: 0.5 } },
+            { duration: 100 }
+        );
         narration.dialogue = {
             character: tuan,
             text: `*(Tuấn nghe):* "Là Mai. Nó đang giả vờ yếu đuối. Hãy cẩn thận."`
         };
     },
     async () => {
-        await showImageContainer("mai", ["fm02_Closed_Frown"]);
+        await moveIn("mai", 
+            { value: ["fm02_Closed_Frown"], options: { xAlign: 0.95, yAlign: 0.9 } },
+            { duration: 100 }
+        );
+        await moveIn("mai", 
+            { value: ["fm02_Closed_Frown"], options: { xAlign: 0.95, yAlign: 1 } },
+            { duration: 100 }
+        );
         narration.dialogue = {
             character: mai,
             text: `*(Mai nghe):* "Bọn họ đang nghi ngờ ngươi. Ngươi sẽ bị bỏ lại."`
@@ -191,7 +250,15 @@ const scene1 = newLabel("scene1_invitation", [
         narration.dialogue = `Cả nhóm nhìn nhau, ánh mắt giờ đây không chỉ có sợ hãi mà còn đầy sự nghi kỵ.`;
     },
     async () => {
-        await showImageContainer("minh", ["main_Frown"]);
+        // Jump animation for Minh's final line
+        await moveIn("minh", 
+            { value: ["main_Frown"], options: { xAlign: 0.1, yAlign: 0.9 } },
+            { duration: 100 }
+        );
+        await moveIn("minh", 
+            { value: ["main_Frown"], options: { xAlign: 0.1, yAlign: 1 } },
+            { duration: 100 }
+        );
         narration.dialogue = {
             character: minh,
             text: `Chuyện gì đang xảy ra vậy? Ai đó trong chúng ta... thật sự đã bị chiếm xác?`
