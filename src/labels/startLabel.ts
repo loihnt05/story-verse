@@ -5,14 +5,16 @@ import {
 } from "@drincs/pixi-vn";
 // import scene1 from "./scenes/scene1";
 // import testFmainSprites from "./scenes/testFmainSprites";
-import protagonistSelectionScene from "./scenes/protagonistSelection";
+// import protagonistSelectionScene from "./scenes/protagonistSelection";
+import testFmainSprites from "./scenes/testFmainSprites";
 
 const startLabel = newLabel(
     "start",
     [
         async (props) => {
             // Character selection before starting the game
-            await narration.call(protagonistSelectionScene, props);
+            // await narration.call(protagonistSelectionScene, props);
+            await narration.call(testFmainSprites, props);
         },
     ],
     {

@@ -1,5 +1,6 @@
 import { canvas, moveIn, narration, newLabel, showImageContainer } from "@drincs/pixi-vn";
-import { lan, mai, minh, tuan } from "../../values/characters";
+import { lan, mai, tuan } from "../../values/characters";
+import { getProtagonist, ProtagonistSprites } from "../../utils/protagonist-manager";
 import scene2 from "./scene2";
 
 /**
@@ -32,12 +33,12 @@ const scene1 = newLabel("scene1_invitation", [
         narration.dialogue = `Không khí ngột ngạt và tĩnh lặng. Bốn người bạn ngồi quanh một cuốn sách cổ sờn cũ.`;
     },
     
-    // Show all characters - Group 1: Minh and Lan (left side)
+    // Show all characters - Group 1: Protagonist and Lan (left side)
     async () => {
         await moveIn(
-            "minh",
+            "protagonist",
             {
-                value: ["main_Open"],
+                value: [ProtagonistSprites.Open()],
                 options: { xAlign: 0.1, yAlign: 1 },
             },
             { direction: "right", ease: "circInOut", type: "spring" }
@@ -74,15 +75,7 @@ const scene1 = newLabel("scene1_invitation", [
     
     // Tuấn speaks - skeptical
     async () => {
-        // Jump animation to highlight
-        await moveIn("tuan", 
-            { value: ["m01_Frown"], options: { xAlign: 0.75, yAlign: 0.9, scale: { x: -1, y: 1 }, anchor: 0.5 } },
-            { duration: 100 }
-        );
-        await moveIn("tuan", 
-            { value: ["m01_Frown"], options: { xAlign: 0.75, yAlign: 1, scale: { x: -1, y: 1 }, anchor: 0.5 } },
-            { duration: 100 }
-        );
+        await showImageContainer("tuan", ["m01_Frown"], { xAlign: 0.75, yAlign: 1, scale: { x: -1, y: 1 }, anchor: 0.5 });
         narration.dialogue = {
             character: tuan,
             text: "Tớ vẫn không tin được là chúng ta đang làm chuyện này đấy. Nhỡ có con gì hiện ra thật thì sao?"
@@ -90,15 +83,7 @@ const scene1 = newLabel("scene1_invitation", [
     },
     // Lan speaks - analytical
     async () => {
-        // Jump animation to highlight
-        await moveIn("lan", 
-            { value: ["fm01_Smile"], options: { xAlign: 0.35, yAlign: 1.1 } },
-            { duration: 100 }
-        );
-        await moveIn("lan", 
-            { value: ["fm01_Smile"], options: { xAlign: 0.35, yAlign: 1.2 } },
-            { duration: 100 }
-        );
+        await showImageContainer("lan", ["fm01_Smile"], { xAlign: 0.35, yAlign: 1.2 });
         narration.dialogue = {
             character: lan,
             text: "Thống kê cho thấy 99% các nghi thức gọi hồn chỉ là do ảo giác nhóm. Cứ xem như một trải nghiệm tâm lý đi."
@@ -107,41 +92,27 @@ const scene1 = newLabel("scene1_invitation", [
     
     // Mai speaks - nervous
     async () => {
-        // Jump animation to highlight
-        await moveIn("mai", 
-            { value: ["fm02_Frown"], options: { xAlign: 0.95, yAlign: 0.9 } },
-            { duration: 100 }
-        );
-        await moveIn("mai", 
-            { value: ["fm02_Frown"], options: { xAlign: 0.95, yAlign: 1 } },
-            { duration: 100 }
-        );
+        await showImageContainer("mai", ["fm02_Frown"], { xAlign: 0.95, yAlign: 1 });
         narration.dialogue = {
             character: mai,
             text: "Nhưng... từ lúc vào đây tớ đã thấy lạnh sống lưng rồi."
         };
     },
     
-    // Minh speaks - reassuring
+    // Protagonist speaks - reassuring
     async () => {
-        // Jump animation to highlight
-        await moveIn("minh", 
-            { value: ["main_Smile"], options: { xAlign: 0.1, yAlign: 0.9 } },
-            { duration: 100 }
-        );
-        await moveIn("minh", 
-            { value: ["main_Smile"], options: { xAlign: 0.1, yAlign: 1 } },
-            { duration: 100 }
-        );
+        const protagonist = getProtagonist();
+        await showImageContainer("protagonist", [ProtagonistSprites.Smile()], { xAlign: 0.1, yAlign: 1 });
         narration.dialogue = {
-            character: minh,
+            character: protagonist,
             text: "Thôi nào mọi người. Chỉ là đọc vài câu cho vui thôi mà. Sẽ không có gì xảy ra đâu. Để tớ đọc câu cuối cùng nhé."
         };
     },
     
     // The ritual action
     async () => {
-        narration.dialogue = `Minh hắng giọng, đọc to câu niệm cuối cùng từ cuốn sách.`;
+        const protagonist = getProtagonist();
+        narration.dialogue = `${protagonist.name} hắng giọng, đọc to câu niệm cuối cùng từ cuốn sách.`;
     },
     async () => {
         narration.dialogue = `Vừa dứt lời, tất cả nến trong phòng đồng loạt phụt tắt.`;
@@ -156,56 +127,29 @@ const scene1 = newLabel("scene1_invitation", [
     
     // Whispers - what each character hears
     async () => {
-        await moveIn("minh", 
-            { value: ["main_Frown"], options: { xAlign: 0.1, yAlign: 0.9 } },
-            { duration: 100 }
-        );
-        await moveIn("minh", 
-            { value: ["main_Frown"], options: { xAlign: 0.1, yAlign: 1 } },
-            { duration: 100 }
-        );
+        const protagonist = getProtagonist();
+        await showImageContainer("protagonist", [ProtagonistSprites.Frown()], { xAlign: 0.1, yAlign: 1 });
         narration.dialogue = {
-            character: minh,
-            text: `*(Minh nghe):* "Trong số các ngươi, có một kẻ đã bị chiếm xác."`
+            character: protagonist,
+            text: `*(${protagonist.name} nghe):* "Trong số các ngươi, có một kẻ đã bị chiếm xác."`
         };
     },
     async () => {
-        await moveIn("lan", 
-            { value: ["fm01_Frown"], options: { xAlign: 0.35, yAlign: 1.1 } },
-            { duration: 100 }
-        );
-        await moveIn("lan", 
-            { value: ["fm01_Frown"], options: { xAlign: 0.35, yAlign: 1.2 } },
-            { duration: 100 }
-        );
+        await showImageContainer("lan", ["fm01_Frown"], { xAlign: 0.35, yAlign: 1.2 });
         narration.dialogue = {
             character: lan,
             text: `*(Lan nghe):* "Đừng tin ai cả. Một người trong nhóm không còn là chính mình nữa."`
         };
     },
     async () => {
-        await moveIn("tuan", 
-            { value: ["m01_Frown"], options: { xAlign: 0.75, yAlign: 0.9, scale: { x: -1, y: 1 }, anchor: 0.5 } },
-            { duration: 100 }
-        );
-        await moveIn("tuan", 
-            { value: ["m01_Frown"], options: { xAlign: 0.75, yAlign: 1, scale: { x: -1, y: 1 }, anchor: 0.5 } },
-            { duration: 100 }
-        );
+        await showImageContainer("tuan", ["m01_Frown"], { xAlign: 0.75, yAlign: 1, scale: { x: -1, y: 1 }, anchor: 0.5 });
         narration.dialogue = {
             character: tuan,
             text: `*(Tuấn nghe):* "Là Mai. Nó đang giả vờ yếu đuối. Hãy cẩn thận."`
         };
     },
     async () => {
-        await moveIn("mai", 
-            { value: ["fm02_Closed_Frown"], options: { xAlign: 0.95, yAlign: 0.9 } },
-            { duration: 100 }
-        );
-        await moveIn("mai", 
-            { value: ["fm02_Closed_Frown"], options: { xAlign: 0.95, yAlign: 1 } },
-            { duration: 100 }
-        );
+        await showImageContainer("mai", ["fm02_Closed_Frown"], { xAlign: 0.95, yAlign: 1 });
         narration.dialogue = {
             character: mai,
             text: `*(Mai nghe):* "Bọn họ đang nghi ngờ ngươi. Ngươi sẽ bị bỏ lại."`
@@ -217,7 +161,8 @@ const scene1 = newLabel("scene1_invitation", [
         narration.dialogue = `Cơn đau biến mất.`;
     },
     async () => {
-        narration.dialogue = `Minh vội bật đèn pin điện thoại lên.`;
+        const protagonist = getProtagonist();
+        narration.dialogue = `${protagonist.name} vội bật đèn pin điện thoại lên.`;
     },
     async () => {
         // Change to main corridor to show they've moved
@@ -243,24 +188,17 @@ const scene1 = newLabel("scene1_invitation", [
     
     // The suspicion begins
     async () => {
-        await showImageContainer("minh", ["main_Open"]);
+        await showImageContainer("protagonist", [ProtagonistSprites.Open()]);
         await showImageContainer("lan", ["fm01_Frown"]);
         await showImageContainer("tuan", ["m01_Frown"], { scale: { x: -1, y: 1 }, anchor: 0.5 });
         await showImageContainer("mai", ["fm02_Frown"]);
         narration.dialogue = `Cả nhóm nhìn nhau, ánh mắt giờ đây không chỉ có sợ hãi mà còn đầy sự nghi kỵ.`;
     },
     async () => {
-        // Jump animation for Minh's final line
-        await moveIn("minh", 
-            { value: ["main_Frown"], options: { xAlign: 0.1, yAlign: 0.9 } },
-            { duration: 100 }
-        );
-        await moveIn("minh", 
-            { value: ["main_Frown"], options: { xAlign: 0.1, yAlign: 1 } },
-            { duration: 100 }
-        );
+        const protagonist = getProtagonist();
+        await showImageContainer("protagonist", [ProtagonistSprites.Frown()], { xAlign: 0.1, yAlign: 1 });
         narration.dialogue = {
-            character: minh,
+            character: protagonist,
             text: `Chuyện gì đang xảy ra vậy? Ai đó trong chúng ta... thật sự đã bị chiếm xác?`
         };
     },
