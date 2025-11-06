@@ -4,22 +4,20 @@ import {
     newLabel,
 } from "@drincs/pixi-vn";
 // import scene1 from "./scenes/scene1";
-import testFmainSprites from "./scenes/testFmainSprites";
-// import characterSelectionScene from "./scenes/characterSelection";
+// import testFmainSprites from "./scenes/testFmainSprites";
+import protagonistSelectionScene from "./scenes/protagonistSelection";
 
 const startLabel = newLabel(
     "start",
     [
         async (props) => {
-            // Test character selection first
-            // await narration.call(characterSelectionScene, props);
-            // Then start the main story
-            await narration.call(testFmainSprites, props);
+            // Character selection before starting the game
+            await narration.call(protagonistSelectionScene, props);
         },
     ],
     {
         onLoadingLabel: () => {
-            Assets.backgroundLoadBundle(["fm01", "fm02", "m01", "main", "backgrounds_pack4"]);
+            Assets.backgroundLoadBundle(["fm01", "fm02", "m01", "main", "fmain", "backgrounds_pack4"]);
         },
     }
 );
