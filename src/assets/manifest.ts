@@ -6,6 +6,7 @@ import { fm01Assets } from "./characters/fm01";
 import { fm02Assets } from "./characters/fm02";
 import { m01Assets } from "./characters/m01";
 import { pack4Assets } from "./backgrounds/pack4";
+import { fmainAssets } from "./characters/fmain";
 
 /**
  * Manifest for the assets used in the game.
@@ -46,6 +47,10 @@ const manifest: AssetsManifest = {
         {
             name: "main",
             assets: mainAssets,
+        },
+        {
+            name: "fmain",
+            assets: fmainAssets,
         },
         {
             name: "fm01",

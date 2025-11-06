@@ -3,7 +3,8 @@ import {
     narration,
     newLabel,
 } from "@drincs/pixi-vn";
-import scene1 from "./scenes/scene1";
+// import scene1 from "./scenes/scene1";
+import testFmainSprites from "./scenes/testFmainSprites";
 // import characterSelectionScene from "./scenes/characterSelection";
 
 const startLabel = newLabel(
@@ -13,7 +14,7 @@ const startLabel = newLabel(
             // Test character selection first
             // await narration.call(characterSelectionScene, props);
             // Then start the main story
-            await narration.call(scene1, props);
+            await narration.call(testFmainSprites, props);
         },
     ],
     {
