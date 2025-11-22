@@ -1,5 +1,6 @@
 import { canvas, narration, newLabel, showImageContainer } from "@drincs/pixi-vn";
-import { lan, mai, minh, tuan } from "../../values/characters";
+import { lan, mai, tuan } from "../../values/characters";
+import { getProtagonist, ProtagonistSprites } from "../../utils/protagonist-manager";
 
 /**
  * CẢNH 2B (NHÁNH B: ĐI CHUNG)
@@ -8,11 +9,12 @@ import { lan, mai, minh, tuan } from "../../values/characters";
  * The whole group stays together and explores the Archive Room
  */
 export const scene2B = newLabel("scene2B_stay_together", [
-    // Minh's decision - cautious approach
+    // Protagonist's decision - cautious approach
     async () => {
-        await showImageContainer("minh", ["main_Open"]);
+        const protagonist = getProtagonist();
+        await showImageContainer("protagonist", [ProtagonistSprites.Open()]);
         narration.dialogue = {
-            character: minh,
+            character: protagonist,
             text: "Không! Ở cùng nhau sẽ an toàn hơn. Chúng ta đi cùng nhau."
         };
     },
@@ -122,12 +124,13 @@ export const scene2B = newLabel("scene2B_stay_together", [
         };
     },
     
-    // Mai suspects Minh
+    // Mai suspects Protagonist
     async () => {
+        const protagonist = getProtagonist();
         await showImageContainer("mai", ["fm02_Frown"]);
         narration.dialogue = {
             character: mai,
-            text: "Nhưng... Minh... cậu là trưởng nhóm. Cậu là người đồng ý làm việc này... và cậu là người đọc câu cuối cùng."
+            text: `Nhưng... ${protagonist.name}... cậu là trưởng nhóm. Cậu là người đồng ý làm việc này... và cậu là người đọc câu cuối cùng.`
         };
     },
     
@@ -163,7 +166,8 @@ export const scene2B = newLabel("scene2B_stay_together", [
     },
     
     async () => {
-        narration.dialogue = `Sự nghi ngờ giờ đây gieo rắc lên cả Lan và Minh, không chỉ tập trung vào Mai.`;
+        const protagonist = getProtagonist();
+        narration.dialogue = `Sự nghi ngờ giờ đây gieo rắc lên cả Lan và ${protagonist.name}, không chỉ tập trung vào Mai.`;
     },
     
     async () => {

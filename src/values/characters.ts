@@ -41,4 +41,8 @@ export const mai = new Character("mai", {
     color: "#9b4ae2",
 });
 
-RegisteredCharacters.add([mc, james, steph, sly, minh, tuan, lan, mai]);
+export const fmale = new Character("fmale", {
+    name: "Fmale",
+    color: "#e2b84a",
+});
+RegisteredCharacters.add([mc, james, steph, sly, minh, tuan, lan, mai, fmale]);

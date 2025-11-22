@@ -1,5 +1,5 @@
 import { canvas, narration } from "@drincs/pixi-vn";
-import { Box, CircularProgress } from "@mui/joy";
+import { Box, Button, CircularProgress } from "@mui/joy";
 import Stack from "@mui/joy/Stack";
 import { useQueryClient } from "@tanstack/react-query";
 import { motion } from "motion/react";
@@ -68,6 +68,13 @@ export default function MainMenu() {
             });
     };
 
+    const handleSkipVideo = () => {
+        if (videoRef.current) {
+            videoRef.current.pause();
+            videoRef.current.currentTime = videoRef.current.duration; // Jump to end to trigger onEnded
+        }
+    };
+
     return (
         <>
             {/* Video Background */}
@@ -94,6 +101,35 @@ export default function MainMenu() {
                 <source src="/asset/newBackground/OpenDoor.mov" type="video/quicktime" />
                 Your browser does not support the video tag.
             </video>
+
+            {/* Skip Button - only visible when video is playing */}
+            {isVideoPlaying && (
+                <Button
+                    onClick={handleSkipVideo}
+                    variant="soft"
+                    color="neutral"
+                    sx={{
+                        position: "fixed",
+                        bottom: { xs: 16, sm: 24, md: 32 },
+                        right: { xs: 16, sm: 24, md: 32 },
+                        zIndex: 1001,
+                        fontSize: { xs: "0.875rem", sm: "1rem" },
+                        padding: { xs: "8px 16px", sm: "10px 20px" },
+                        backdropFilter: "blur(8px)",
+                        backgroundColor: "rgba(0, 0, 0, 0.6)",
+                        "&:hover": {
+                            backgroundColor: "rgba(0, 0, 0, 0.8)",
+                        },
+                    }}
+                    component={motion.button}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 20 }}
+                    transition={{ duration: 0.3 }}
+                >
+                    {t("skip")}
+                </Button>
+            )}
 
             <Stack
                 direction='column'

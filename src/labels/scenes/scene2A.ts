@@ -1,25 +1,28 @@
 import { canvas, narration, newLabel, showImageContainer } from "@drincs/pixi-vn";
-import { lan, minh } from "../../values/characters";
+import { lan } from "../../values/characters";
+import { getProtagonist, ProtagonistSprites } from "../../utils/protagonist-manager";
 
 /**
  * CẢNH 2A (NHÁNH A: CHIA RA)
  * Scene 2A (Branch A: Split Up)
  * 
- * Minh and Lan explore the Library
+ * Protagonist and Lan explore the Library
  * Tuấn and Mai explore the Medical Room
  */
 export const scene2A = newLabel("scene2A", [
-    // Minh's decision - logical approach
+    // Protagonist's decision - logical approach
     async () => {
-        await showImageContainer("minh", ["main_Open"]);
+        const protagonist = getProtagonist();
+        await showImageContainer("protagonist", [ProtagonistSprites.Open()]);
         narration.dialogue = {
-            character: minh,
+            character: protagonist,
             text: "Được. Chia ra hành động. Hẹn gặp lại ở đây sau 15 phút."
         };
     },
     
-    // GROUP 1: Minh and Lan at the Library
+    // GROUP 1: Protagonist and Lan at the Library
     async () => {
+        const protagonist = getProtagonist();
         await showImageContainer("bg", ["library"], {
             x: canvas.screen.width / 2,
             y: canvas.screen.height / 2,
@@ -27,7 +30,11 @@ export const scene2A = newLabel("scene2A", [
             width: canvas.screen.width,
             height: canvas.screen.height,
         });
-        narration.dialogue = `**NHÓM MINH VÀ LAN - THƯ VIỆN**`;
+        await showImageContainer("protagonist", [ProtagonistSprites.Open()], { xAlign: 0.3, yAlign: 1 });
+        await showImageContainer("lan", ["fm01_Open"], { xAlign: 0.7, yAlign: 1 });
+            await showImageContainer("tuan", []);
+            await showImageContainer("mai", []);
+        narration.dialogue = `**NHÓM ${protagonist.name.toUpperCase()} VÀ LAN - THƯ VIỆN**`;
     },
     
     async () => {
@@ -51,11 +58,12 @@ export const scene2A = newLabel("scene2A", [
         };
     },
     
-    // Sub-choice for player (Minh)
+    // Sub-choice for player (Protagonist)
     async () => {
-        await showImageContainer("minh", ["main_shiny_Frown"]); // Shiny glasses - thinking critically
+        const protagonist = getProtagonist();
+        await showImageContainer("protagonist", [ProtagonistSprites.Frown()]); // Protagonist thinking critically
         narration.dialogue = {
-            character: minh,
+            character: protagonist,
             text: "Nhưng..."
         };
         narration.choices = [
@@ -76,17 +84,34 @@ export const scene2A = newLabel("scene2A", [
 // Choice A1 - Trust the evidence
 export const scene2A_choiceA1 = newLabel("scene2A_choice_A1", [
     async () => {
-        await showImageContainer("minh", ["main_Open"]);
+        const protagonist = getProtagonist();
+        await showImageContainer("protagonist", [ProtagonistSprites.Open()]);
         narration.dialogue = {
-            character: minh,
+            character: protagonist,
             text: "Cậu nói đúng. Bằng chứng là đây rồi. Đi thôi."
         };
     },
     async () => {
-        narration.dialogue = `Minh và Lan rời khỏi thư viện. Minh không bao giờ tìm thấy manh mối thứ hai.`;
+        const protagonist = getProtagonist();
+        narration.dialogue = `${protagonist.name} và Lan rời khỏi thư viện. ${protagonist.name} không bao giờ tìm thấy manh mối thứ hai.`;
     },
     
-    // Switch to Tuấn and Mai group - hide Minh and Lan, show Tuấn and Mai
+    // Meanwhile transition screen
+    async () => {
+        await showImageContainer("bg", ["main_corridor"], {
+            x: canvas.screen.width / 2,
+            y: canvas.screen.height / 2,
+            anchor: 0.5,
+            width: canvas.screen.width,
+            height: canvas.screen.height,
+        });
+        // Hide all characters for transition
+        await showImageContainer("protagonist", []);
+        await showImageContainer("lan", []);
+        narration.dialogue = `**MEANWHILE...**`;
+    },
+    
+    // Switch to Tuấn and Mai group - hide Protagonist and Lan, show Tuấn and Mai
     async () => {
         await showImageContainer("bg", ["medical_room"], {
             x: canvas.screen.width / 2,
@@ -95,8 +120,8 @@ export const scene2A_choiceA1 = newLabel("scene2A_choice_A1", [
             width: canvas.screen.width,
             height: canvas.screen.height,
         });
-        // Hide Minh and Lan
-        await showImageContainer("minh", []);
+        // Hide Protagonist and Lan
+        await showImageContainer("protagonist", []);
         await showImageContainer("lan", []);
         // Show Tuấn and Mai
         await showImageContainer("tuan", ["m01_Open"], { 
@@ -145,35 +170,55 @@ export const scene2A_choiceA1 = newLabel("scene2A_choice_A1", [
 // Choice A2 - Doubt the evidence
 export const scene2A_choiceA2 = newLabel("scene2A_choice_A2", [
     async () => {
-        await showImageContainer("minh", ["main_shiny_Open"]); // Wise moment - shiny glasses
+        const protagonist = getProtagonist();
+        await showImageContainer("protagonist", [ProtagonistSprites.Open()]); // Wise moment
         narration.dialogue = {
-            character: minh,
+            character: protagonist,
             text: "Đợi đã, Lan. Mọi thứ có vẻ... quá dễ dàng. Tớ muốn kiểm tra thêm."
         };
     },
     async () => {
+        const protagonist = getProtagonist();
         await showImageContainer("lan", ["fm01_Frown"]);
         narration.dialogue = {
             character: lan,
-            text: "Thời gian không nhiều, Minh..."
+            text: `Thời gian không nhiều, ${protagonist.name}...`
         };
     },
     async () => {
-        narration.dialogue = `Lan bực bội nhưng Minh tìm kỹ hơn. Anh quay lại giá sách nơi tìm thấy trang giấy.`;
+        const protagonist = getProtagonist();
+        narration.dialogue = `Lan bực bội nhưng ${protagonist.name} tìm kỹ hơn. ${protagonist.name} quay lại giá sách nơi tìm thấy trang giấy.`;
     },
     async () => {
-        await showImageContainer("minh", ["main_shiny_Smile"]); // Discovery moment
-        narration.dialogue = `Minh phát hiện một mảnh giấy nhỏ hơn bị gấp lại, nhét sâu bên trong một cuốn sách khác.`;
+        const protagonist = getProtagonist();
+        await showImageContainer("protagonist", [ProtagonistSprites.Smile()]); // Discovery moment
+        narration.dialogue = `${protagonist.name} phát hiện một mảnh giấy nhỏ hơn bị gấp lại, nhét sâu bên trong một cuốn sách khác.`;
     },
     async () => {
         narration.dialogue = `Chữ viết vội vã: "NÓ DỰNG KỊCH. MỌI BẰNG CHỨNG ĐỀU LÀ GIẢ. TIN TƯỞNG NHAU LÀ LỐI THOÁT DUY NHẤT."`;
     },
     async () => {
-        await showImageContainer("minh", ["main_Frown"]);
+        const protagonist = getProtagonist();
+        await showImageContainer("protagonist", [ProtagonistSprites.Frown()]);
         narration.dialogue = {
-            character: minh,
+            character: protagonist,
             text: "Lan... Cậu xem đây. Có vẻ như ai đó đang thao túng chúng ta."
         };
+    },
+    
+    // Meanwhile transition screen
+    async () => {
+        await showImageContainer("bg", ["main_corridor"], {
+            x: canvas.screen.width / 2,
+            y: canvas.screen.height / 2,
+            anchor: 0.5,
+            width: canvas.screen.width,
+            height: canvas.screen.height,
+        });
+        // Hide all characters for transition
+        await showImageContainer("protagonist", []);
+        await showImageContainer("lan", []);
+        narration.dialogue = `**Trong khi đó...**`;
     },
     
     // Switch to Tuấn and Mai group - hide Minh and Lan, show Tuấn and Mai
@@ -205,7 +250,21 @@ export const scene2A_choiceA2 = newLabel("scene2A_choice_A2", [
         await showImageContainer("mai", ["fm02_Closed_Frown"]);
         narration.dialogue = `Đúng lúc đó, Mai giật mình và kêu lên một tiếng nhỏ, khiến Tuấn càng thêm nghi ngờ.`;
     },
-    
+    async()=>{
+        await showImageContainer("bg", ["main_corridor"], {
+            x: canvas.screen.width / 2,
+            y: canvas.screen.height / 2,
+            anchor: 0.5,
+            width: canvas.screen.width,
+            height: canvas.screen.height,
+        });
+        // Hide all characters for transition
+        await showImageContainer("minh", []);
+        await showImageContainer("lan", []);
+                await showImageContainer("tuan", []);
+        await showImageContainer("mai", []);
+        narration.dialogue = `**Cả nhóm sau đó tập trung lại ở hành lang.**`;
+    },
     // Reunion - show all 4 characters
     async () => {
         await showImageContainer("bg", ["main_corridor"], {
@@ -225,7 +284,6 @@ export const scene2A_choiceA2 = newLabel("scene2A_choice_A2", [
             anchor: 0.5 
         });
         await showImageContainer("mai", ["fm02_Frown"], { xAlign: 0.9, yAlign: 1 });
-        narration.dialogue = `Cả nhóm tập trung lại ở hành lang.`;
     },
     async () => {
         narration.dialogue = `**[TO BE CONTINUED - CẢNH 3A]**`;

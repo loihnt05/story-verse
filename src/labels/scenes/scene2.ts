@@ -1,7 +1,8 @@
 import {
     canvas, narration, newLabel, newChoiceOption, showImageContainer
 } from "@drincs/pixi-vn";
-import { lan, minh, tuan } from "../../values/characters";
+import { lan, tuan } from "../../values/characters";
+import { getProtagonist, ProtagonistSprites } from "../../utils/protagonist-manager";
 import { scene2A } from "./scene2A";
 import { scene2B } from "./scene2B";
 /**
@@ -38,18 +39,20 @@ const scene2 = newLabel("scene2_maze_of_suspicion", [
 
     // Tuấn suggests splitting up
     async () => {
+        const protagonist = getProtagonist();
         await showImageContainer("tuan", ["m01_Open"], { scale: { x: -1, y: 1 }, anchor: 0.5 });
         narration.dialogue = {
             character: tuan,
-            text: "Tốt nhất là chia ra. Sẽ nhanh hơn. Minh và Lan, hai người vào thư viện đi. Tôi sẽ trông chừng Mai, kiểm tra khu phòng y tế."
+            text: `Tốt nhất là chia ra. Sẽ nhanh hơn. ${protagonist.name} và Lan, hai người vào thư viện đi. Tôi sẽ trông chừng Mai, kiểm tra khu phòng y tế.`
         };
     },
 
     // Player choice - critical decision
     async () => {
-        await showImageContainer("minh", ["main_shiny_Open"]); // Shiny glasses for wise decision moment
+        const protagonist = getProtagonist();
+        await showImageContainer("protagonist", [ProtagonistSprites.Open()]); // Protagonist making wise decision
         narration.dialogue = {
-            character: minh,
+            character: protagonist,
             text: "Chúng ta nên..."
         };
         narration.choices = [
