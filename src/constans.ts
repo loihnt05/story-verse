@@ -1,4 +1,6 @@
-export const MAIN_MENU_ROUTE = "/";
+export const MAIN_MENU_ROUTE = "/mainmenu";
+export const HOME_ROUTE = "/";
+export const GAME_DETAIL_ROUTE = "/gamedetail";
 export const LOADING_ROUTE = "/loading";
 export const NARRATION_ROUTE = "/narration";
 

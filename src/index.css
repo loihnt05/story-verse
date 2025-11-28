@@ -9,5 +9,6 @@
 body {
   margin: 0;
   display: flex;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
 }

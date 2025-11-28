@@ -1,7 +1,7 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { LOADING_ROUTE, MAIN_MENU_ROUTE } from "../constans";
+import { GAME_DETAIL_ROUTE, HOME_ROUTE, LOADING_ROUTE, MAIN_MENU_ROUTE } from "../constans";
 import { addRefreshSave, loadRefreshSave } from "../utils/save-utility";
 import useEventListener from "./useKeyDetector";
 import useMyNavigate from "./useMyNavigate";
@@ -23,6 +23,10 @@ export default function useClosePageDetector() {
     });
 
     useEffect(() => {
+        if(location.pathname === HOME_ROUTE || location.pathname === GAME_DETAIL_ROUTE) {
+            return;
+        }
+
         loadRefreshSave(navigate).then(() =>
             queryClient.invalidateQueries({ queryKey: [INTERFACE_DATA_USE_QUEY_KEY] })
         );
